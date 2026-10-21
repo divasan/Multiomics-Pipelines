@@ -1,0 +1,7 @@
+group,replicate,fastq_1,fastq_2,control
+IgG,1,/path/to/IgG_rep1_R1.fastq.gz,/path/to/IgG_rep1_R2.fastq.gz,
+IgG,2,/path/to/IgG_rep2_R1.fastq.gz,/path/to/IgG_rep2_R2.fastq.gz,
+H3K27ac,1,/path/to/H3K27ac_rep1_R1.fastq.gz,/path/to/H3K27ac_rep1_R2.fastq.gz,IgG
+H3K27ac,2,/path/to/H3K27ac_rep2_R1.fastq.gz,/path/to/H3K27ac_rep2_R2.fastq.gz,IgG
+Antibody,1,/path/to/Antibody_rep1_R1.fastq.gz,/path/to/Antibody_rep1_R2.fastq.gz,IgG
+Antibody,2,/path/to/Antibody_rep2_R1.fastq.gz,/path/to/Antibody_rep2_R2.fastq.gz,IgG
