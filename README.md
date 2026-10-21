@@ -87,3 +87,46 @@ sbatch run_cutandrun.slurm
 The pipeline uses Bowtie2 for alignment, SEACR and MACS2 for peak calling, and CPM normalization. IgG controls are specified in the samplesheet.
 
 The analysis runs within a single SLURM allocation using Nextflow's local executor. Results are saved in the specified output directory.
+
+
+## RNA-seq
+
+RNA-seq data are processed using [nf-core/rnaseq v3.18.0](https://nf-co.re/rnaseq/3.18.0/) with Nextflow and Apptainer on a SLURM cluster.
+
+### Files
+
+- `RNA-seq/samplesheet.csv` – Contains sample names, paired-end FASTQ paths, and strandedness information.
+- `RNA-seq/run_rnaseq.slurm` – SLURM script for running nf-core/rnaseq.
+
+### Requirements
+
+- nf-core/rnaseq v3.18.0
+- Nextflow 24.10.0
+- Java 17 and Apptainer
+- SLURM scheduler
+- hg38 reference FASTA (`hg38.fa`)
+- GENCODE v50 gene annotation (`gencode.v50.annotation.gtf`)
+
+### Running the pipeline
+
+**1.** Install Nextflow and nf-core/rnaseq v3.18.0 following the [nf-core documentation](https://nf-co.re/rnaseq/3.18.0/).
+
+**2.** Edit `samplesheet.csv` with the sample names, paired-end FASTQ paths, and strandedness. Each biological replicate should be listed as a separate sample. Use `auto` for automatic strandedness inference.
+
+**3.** Update the paths at the beginning of `run_rnaseq.slurm`:
+
+- `PIPELINE` – Directory containing `main.nf` from nf-core/rnaseq v3.18.0.
+- `NEXTFLOW` – Full path to the Nextflow executable.
+- `BASE_DIR` – Directory for results and intermediate files.
+- `FASTA` – Path to the hg38 reference FASTA.
+- `GTF` – Path to the GENCODE v50 annotation file.
+
+**4.** Adjust the SLURM resources and partition for your HPC, then submit from the `RNA-seq` directory:
+
+```bash
+sbatch run_rnaseq.slurm
+```
+
+The pipeline uses STAR and RSEM for alignment and quantification. Alignment intermediates and generated reference indices are saved.
+
+The analysis runs within a single SLURM allocation using Nextflow's local executor. Results are saved in the specified output directory.
